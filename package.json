@@ -1,0 +1,42 @@
+{
+  "name": "@matteo.collina/fastify-auth-mongo-jwt",
+  "version": "0.0.1",
+  "description": "Sample user-management (signup, login) with Fastify and JWT",
+  "main": "index.js",
+  "scripts": {
+    "mongo": "docker run -p 27017:27017 mongo:4.0.3",
+    "test": "standard --fix && tap test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcollina/fastify-auth-mongo-jwt.git"
+  },
+  "keywords": [
+    "fastify",
+    "mongo",
+    "jwt",
+    "auth",
+    "mongodb",
+    "signup",
+    "login"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcollina/fastify-auth-mongo-jwt/issues"
+  },
+  "homepage": "https://github.com/mcollina/fastify-auth-mongo-jwt#readme",
+  "devDependencies": {
+    "fastify": "^1.12.1",
+    "fastify-plugin": "^1.2.1",
+    "mongo-clean": "^2.0.0",
+    "pre-commit": "^1.2.2",
+    "standard": "^12.0.1",
+    "tap": "^12.0.1"
+  },
+  "dependencies": {
+    "fastify-jwt": "^0.4.0",
+    "fastify-mongodb": "^0.9.0",
+    "secure-password": "^3.1.0"
+  }
+}
