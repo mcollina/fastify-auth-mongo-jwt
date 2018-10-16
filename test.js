@@ -93,6 +93,44 @@ test('signup and login', async (t) => {
   t.match(JSON.parse(res2.body), { status: 'ok' })
 })
 
+test('signup without password', async (t) => {
+  const app = build(t)
+
+  const res1 = await app.inject({
+    url: '/signup',
+    method: 'POST',
+    body: {
+      username: 'matteo'
+    }
+  })
+
+  t.deepEqual(res1.statusCode, 400)
+  t.match(JSON.parse(res1.body), {
+    statusCode: 400,
+    error: 'Bad Request',
+    message: 'body should have required property \'password\''
+  })
+})
+
+test('signup without username', async (t) => {
+  const app = build(t)
+
+  const res1 = await app.inject({
+    url: '/signup',
+    method: 'POST',
+    body: {
+      password: 'aaaaa'
+    }
+  })
+
+  t.deepEqual(res1.statusCode, 400)
+  t.match(JSON.parse(res1.body), {
+    statusCode: 400,
+    error: 'Bad Request',
+    message: 'body should have required property \'username\''
+  })
+})
+
 test('login wrong credentials', async (t) => {
   const app = build(t)
 
@@ -220,4 +258,42 @@ test('signup and login', async (t) => {
 
   t.deepEqual(res3.statusCode, 200)
   t.match(JSON.parse(res3.body), { username: 'matteo' })
+})
+
+test('login without password', async (t) => {
+  const app = build(t)
+
+  const res1 = await app.inject({
+    url: '/login',
+    method: 'POST',
+    body: {
+      username: 'matteo'
+    }
+  })
+
+  t.deepEqual(res1.statusCode, 400)
+  t.match(JSON.parse(res1.body), {
+    statusCode: 400,
+    error: 'Bad Request',
+    message: 'body should have required property \'password\''
+  })
+})
+
+test('login without username', async (t) => {
+  const app = build(t)
+
+  const res1 = await app.inject({
+    url: '/login',
+    method: 'POST',
+    body: {
+      password: 'aaaaa'
+    }
+  })
+
+  t.deepEqual(res1.statusCode, 400)
+  t.match(JSON.parse(res1.body), {
+    statusCode: 400,
+    error: 'Bad Request',
+    message: 'body should have required property \'username\''
+  })
 })

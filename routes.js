@@ -12,7 +12,22 @@ module.exports = async function (app, opts) {
     username: 1
   }, { unique: true })
 
-  app.post('/signup', async function (req, reply) {
+  app.post('/signup', {
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          username: {
+            type:  'string'
+          },
+          password: {
+            type:  'string'
+          }
+        },
+        required: ['username', 'password']
+      }
+    }
+  }, async function (req, reply) {
     const { username, password } = req.body
 
     const hashedPassword = await pwd.hash(Buffer.from(password))
@@ -40,7 +55,22 @@ module.exports = async function (app, opts) {
     return req.user
   })
 
-  app.post('/login', async function (req, reply) {
+  app.post('/login', {
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          username: {
+            type:  'string'
+          },
+          password: {
+            type:  'string'
+          }
+        },
+        required: ['username', 'password']
+      }
+    }
+  }, async function (req, reply) {
     const { username, password } = req.body
 
     const user = await users.findOne({ username })
