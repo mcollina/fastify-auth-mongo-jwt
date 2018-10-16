@@ -18,7 +18,7 @@ npm i @matteo.collina/fastify-auth-mongo-jwt
 'use strict'
 
 const Fastify = require('fastify')
-const AuthMongoJwt = require('fastify-auth-mongo-jwt')
+const AuthMongoJwt = require('@matteo.collina/fastify-auth-mongo-jwt')
 
 const app = Fastify()
 
@@ -32,6 +32,7 @@ app.register(AuthMongoJwt, {
     useNewUrlParser: true
   }
 })
+```
 
 ## REST routes
 
@@ -43,8 +44,8 @@ Accepts the following body:
 
 ```json
 {
-  username: 'a unique thing',
-  password: 'a long password'
+  "username": 'a unique thing',
+  "password": 'a long password'
 }
 ```
 
@@ -52,8 +53,8 @@ It will return a JWT token, encapsulated with an object:
 
 ```json
 {
-  status: 'ok',
-  token: 'a jwt token'
+  "status": 'ok',
+  "token": 'a jwt token'
 }
 ```
 
@@ -64,7 +65,7 @@ Returns the current user if the token is valid
 
 ```json
 {
-  username: 'a unique thing'
+  "username": 'a unique thing'
 }
 ```
 
@@ -74,8 +75,8 @@ Accepts the following body:
 
 ```json
 {
-  username: 'a unique thing',
-  password: 'a long password'
+  "username": 'a unique thing',
+  "password": 'a long password'
 }
 ```
 
@@ -83,8 +84,8 @@ It will return a JWT token, encapsulated with an object:
 
 ```json
 {
-  status: 'ok',
-  token: 'a jwt token'
+  "status": 'ok',
+  "token": 'a jwt token'
 }
 ```
 
