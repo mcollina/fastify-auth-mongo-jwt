@@ -18,10 +18,10 @@ module.exports = async function (app, opts) {
         type: 'object',
         properties: {
           username: {
-            type:  'string'
+            type: 'string'
           },
           password: {
-            type:  'string'
+            type: 'string'
           }
         },
         required: ['username', 'password']
@@ -61,10 +61,10 @@ module.exports = async function (app, opts) {
         type: 'object',
         properties: {
           username: {
-            type:  'string'
+            type: 'string'
           },
           password: {
-            type:  'string'
+            type: 'string'
           }
         },
         required: ['username', 'password']
