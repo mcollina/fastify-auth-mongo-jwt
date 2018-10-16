@@ -32,6 +32,16 @@ app.register(AuthMongoJwt, {
     useNewUrlParser: true
   }
 })
+
+app.register(async function (app, opts) {
+  app.addHook('preHandler', function (req, reply) {
+    return req.jwtVerify()
+  })
+
+  app.get('/username', async function (req, reply) {
+    return req.user.username
+  })
+}, { prefix: '/protected' })
 ```
 
 ## REST routes

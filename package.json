@@ -1,6 +1,6 @@
 {
   "name": "@matteo.collina/fastify-auth-mongo-jwt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Sample user-management (signup, login) with Fastify and JWT",
   "main": "index.js",
   "scripts": {
