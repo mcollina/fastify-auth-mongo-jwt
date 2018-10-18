@@ -1,6 +1,7 @@
 'use strict'
 
 const securePassword = require('secure-password')
+const DUPLICATE_KEY_ERROR = 11000
 
 module.exports = async function (app, opts) {
   const users = app.mongo.db.collection('users')
@@ -34,8 +35,7 @@ module.exports = async function (app, opts) {
     try {
       await users.insertOne({ username, hashedPassword })
     } catch (err) {
-      // duplicate key
-      if (err.code === 11000) {
+      if (err.code === DUPLICATE_KEY_ERROR) {
         reply.code(400).send({ status: 'not ok' })
         return
       }
