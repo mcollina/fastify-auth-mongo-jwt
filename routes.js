@@ -48,7 +48,7 @@ module.exports = async function (app, opts) {
   })
 
   app.get('/me', {
-    beforeHandler: async (request, reply) => {
+    preValidation: async (request, reply) => {
       await request.jwtVerify()
     }
   }, async function (req, reply) {

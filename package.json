@@ -27,16 +27,16 @@
   },
   "homepage": "https://github.com/mcollina/fastify-auth-mongo-jwt#readme",
   "devDependencies": {
-    "fastify": "^1.12.1",
-    "fastify-plugin": "^1.2.1",
+    "fastify": "^2.4.1",
+    "fastify-plugin": "^1.6.0",
     "mongo-clean": "^2.0.0",
     "pre-commit": "^1.2.2",
     "standard": "^12.0.1",
-    "tap": "^12.0.1"
+    "tap": "^14.2.2"
   },
   "dependencies": {
-    "fastify-jwt": "^0.4.0",
-    "fastify-mongodb": "^0.9.0",
+    "fastify-jwt": "^0.10.0",
+    "fastify-mongodb": "^1.0.1",
     "secure-password": "^3.1.0"
   }
 }
