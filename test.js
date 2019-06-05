@@ -10,6 +10,7 @@ const clean = require('mongo-clean')
 const { MongoClient } = require('mongodb')
 const Fastify = require('fastify')
 const AuthMongoJwt = require('.')
+const { createUser } = AuthMongoJwt
 
 const url = 'mongodb://localhost:27017'
 const database = 'tests'
@@ -296,4 +297,35 @@ test('login without username', async (t) => {
     error: 'Bad Request',
     message: 'body should have required property \'username\''
   })
+})
+
+test('createUser returns a token', async (t) => {
+  const app = build(t)
+
+  const { token } = await createUser(app, { username: 'matteo', password: 'matteo' })
+
+  const res3 = await app.inject({
+    url: '/me',
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  t.deepEqual(res3.statusCode, 200)
+  t.match(JSON.parse(res3.body), { username: 'matteo' })
+})
+
+test('createUser returns inject', async (t) => {
+  const app = build(t)
+
+  const { inject } = await createUser(app)
+
+  const res3 = await inject({
+    url: '/me',
+    method: 'GET'
+  })
+
+  t.deepEqual(res3.statusCode, 200)
+  t.match(JSON.parse(res3.body), { username: 'matteo' })
 })
