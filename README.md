@@ -104,6 +104,63 @@ It will return a JWT token, encapsulated with an object:
 It adds the same decorators of
 [fastify-jwt](https://github.com/fastify/fastify-jwt).
 
+### createUser(app, { username, password })
+
+Utility function to help writing unit tests against this module. It
+returns a JWT `token` for the given user and an `inject` function to
+call HTTP endpoint with that token.
+
+Example:
+
+```js
+const Fastify = require('fastify')
+const AuthMongoJwt = require('@matteo.collina/fastify-auth-mongo-jwt')
+const { createUser } = AuthMongoJwt
+
+async function run () {
+  const app = Fastify({
+    logger: {
+      level: 'error'
+    }
+  })
+
+  app.register(AuthMongoJwt, {
+    auth: {
+      secret: 'thisisalongsecretjustfortests'
+    },
+    mongodb: {
+      url: 'mongodb://mongo/mydb',
+      w: 1,
+      useNewUrlParser: true
+    }
+  })
+
+  app.register(async function (app, opts) {
+    app.addHook('preValidation', function (req, reply) {
+      return req.jwtVerify()
+    })
+
+    app.get('/username', async function (req, reply) {
+      return req.user.username
+    })
+  }, { prefix: '/protected' })
+
+  const {
+    token, // this is the JWT token
+    inject // utility function to inject with that token
+  } = await createUser(app)
+
+  const res = await inject({
+    url: '/username',
+    method: 'GET'
+  })
+
+  console.log(JSON.parse(res.body))
+}
+
+run()
+```
+
 ## License
 
 MIT

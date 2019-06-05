@@ -20,3 +20,29 @@ module.exports = fp(async function (app, opts) {
     prefix: opts.prefix
   })
 })
+
+async function createUser (app, body = { username: 'matteo', password: 'matteo' }) {
+  let res = await app.inject({
+    url: '/signup',
+    method: 'POST',
+    body
+  })
+
+  const token = JSON.parse(res.body).token
+
+  // null because we create a closure on them
+  // free up resources
+  res = null
+
+  return { token, inject }
+
+  function inject (opts) {
+    opts = opts || {}
+    opts.headers = opts.headers || {}
+    opts.headers.authorization = `Bearer ${token}`
+
+    return app.inject(opts)
+  }
+}
+
+module.exports.createUser = createUser
